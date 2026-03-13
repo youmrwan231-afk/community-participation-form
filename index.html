@@ -1,157 +1,152 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>التسجيل المبدئي لعمرة الجزائريين 2026</title>
+<title>التسجيل في العمرة</title>
 
 <style>
-
 body{
-font-family: Arial;
-background:#f4f4f4;
 margin:0;
-direction:rtl;
-text-align:center;
+font-family:Tahoma,Arial;
+background:url("https://images.unsplash.com/photo-1564769625905-50e93615e769?q=80&w=1600") center/cover no-repeat;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
-.header{
-background:#0b6b3a;
-color:white;
-padding:20px;
-font-size:24px;
-font-weight:bold;
-}
-
-.container{
-max-width:500px;
-margin:auto;
+.box{
 background:white;
-padding:20px;
-margin-top:20px;
-border-radius:12px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+width:90%;
+max-width:420px;
+border-radius:25px;
+padding:30px 25px;
+text-align:center;
+box-shadow:0 0 25px rgba(0,0,0,0.25);
 }
 
-img{
-width:100%;
-border-radius:10px;
+.logo{
+font-size:14px;
+color:#555;
+margin-bottom:10px;
 }
 
-h2{
-margin-top:15px;
+h1{
+color:#1b5e20;
+font-size:24px;
+margin:10px 0 20px 0;
 }
 
-.features{
-text-align:right;
-line-height:2;
-font-size:18px;
-margin-top:10px;
+p{
+font-size:17px;
+line-height:1.8;
+color:#333;
 }
 
-.button{
-display:block;
-background:#ff9800;
-color:white;
-padding:18px;
-font-size:20px;
-border-radius:10px;
-text-decoration:none;
-margin-top:20px;
+.date{
 font-weight:bold;
+font-size:20px;
+margin:15px 0;
 }
 
-.button:hover{
-background:#e68900;
+.warning{
+color:#c62828;
+font-weight:bold;
+margin:10px 0;
 }
 
-.badge{
-background:red;
+.counter{
+font-size:18px;
+margin:10px 0;
+color:#444;
+}
+
+button{
+margin-top:20px;
+width:100%;
+padding:18px;
+font-size:18px;
+border:none;
+border-radius:40px;
+background:black;
 color:white;
-padding:8px;
-border-radius:6px;
-font-size:14px;
-display:inline-block;
-margin-top:10px;
+cursor:pointer;
 }
 
-.comments{
-text-align:right;
-margin-top:25px;
-}
-
-.comment{
-background:#f1f1f1;
-padding:10px;
-border-radius:8px;
-margin-top:10px;
-font-size:14px;
+button:hover{
+opacity:0.9;
 }
 
 .footer{
-margin-top:20px;
+margin-top:15px;
 font-size:13px;
 color:#777;
 }
-
 </style>
 
 </head>
-
 <body>
 
-<div class="header">
-فتح التسجيل المبدئي لعمرة الجزائريين 2026 🇩🇿
+<div class="box">
+
+<div class="logo">
+الجمهورية الجزائرية الديمقراطية الشعبية<br>
+وزارة الشؤون الدينية والأوقاف
 </div>
 
-<div class="container">
+<h1>الديوان الوطني للحج والعمرة</h1>
 
-<img src="umrah.jpg" alt="عمرة الجزائر">
+<p>
+قرر السيد الرئيس <b>عبد المجيد تبون</b> منح
+<b>350 رحلة عمرة خالصة التكاليف</b> للأراضي المقدسة،
+وذلك بمناسبة حصول الجزائر على جائزة التميز
+عن موسم الحج.
+</p>
 
-<div class="badge">
-أماكن محدودة
+<div class="date">
+آخر موعد للتسجيل<br>
+21 / 1 / 2025
 </div>
 
-<h2>فرصة لأداء العمرة هذا العام</h2>
-
-<div class="features">
-
-✔ برامج عمرة اقتصادية  
-<br>
-✔ إقامة قريبة من الحرم  
-<br>
-✔ طيران مباشر من الجزائر  
-<br>
-✔ إمكانية السفر مع العائلة  
-
+<div class="warning">
+⚠️ الأماكن محدودة
 </div>
 
-<a href="PUT_YOUR_LINK_HERE" class="button">
-تحقق من توفر الأماكن الآن
-</a>
-
-<div class="comments">
-
-<div class="comment">
-محمد – الجزائر العاصمة  
-<br>
-سجلت وتم التواصل معي لمعرفة التفاصيل.
+<div class="counter">
+المقاعد المتبقية: <span id="seats">87</span>
 </div>
 
-<div class="comment">
-فاطمة – وهران  
-<br>
-كنت أبحث عن برنامج عمرة مناسب ووجدت معلومات مفيدة.
-</div>
+<p>
+سجل الآن وقم بتأكيد التسجيل عبر الكود
+الذي سيصلك في رسالة نصية.
+</p>
 
-</div>
-
-</div>
+<button onclick="goOffer()">
+تأكيد التسجيل الآن
+</button>
 
 <div class="footer">
-© جميع الحقوق محفوظة
+التسجيل مجاني ويستغرق أقل من دقيقة
 </div>
+
+</div>
+
+<script>
+
+function goOffer(){
+window.location.href="PUT_YOUR_CPA_LINK_HERE";
+}
+
+setInterval(function(){
+let seats=document.getElementById("seats");
+let num=parseInt(seats.innerText);
+if(num>12){
+seats.innerText=num-1;
+}
+},8000);
+
+</script>
 
 </body>
 </html>
