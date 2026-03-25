@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spin & Win Challenge</title>
+<title>Spin & Win</title>
 
 <style>
 body{
@@ -14,7 +14,7 @@ body{
   text-align:center;
 }
 
-.box{
+.container{
   max-width:420px;
   margin:30px auto;
   padding:20px;
@@ -22,23 +22,36 @@ body{
 
 h1{font-size:22px}
 
-.wheel{
-  width:250px;
-  height:250px;
-  border-radius:50%;
-  border:8px solid #fff;
-  margin:20px auto;
-}
-
 .btn{
-  padding:14px;
   width:100%;
+  padding:14px;
   margin:10px 0;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   background:#00ffc3;
   font-weight:bold;
   cursor:pointer;
+}
+
+.wheel-container{
+  position:relative;
+  width:280px;
+  height:280px;
+  margin:20px auto;
+}
+
+.pointer{
+  position:absolute;
+  top:-12px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:30px;
+}
+
+canvas{
+  border-radius:50%;
+  border:6px solid #fff;
+  transition:4s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 #quiz,#result{
@@ -63,13 +76,18 @@ h1{font-size:22px}
 
 <body>
 
-<div class="box">
+<div class="container">
 
 <!-- SPIN -->
-<div id="spin">
+<div id="spinSection">
   <h1>🎁 Spin & Win</h1>
-  <p>You have 1 chance today</p>
-  <div class="wheel" id="wheel"></div>
+  <p>You have 1 chance today 😳</p>
+
+  <div class="wheel-container">
+    <div class="pointer">▼</div>
+    <canvas id="wheelCanvas" width="280" height="280"></canvas>
+  </div>
+
   <button class="btn" onclick="spin()">SPIN NOW</button>
 </div>
 
@@ -94,67 +112,104 @@ h1{font-size:22px}
 </div>
 
 <script>
-const CPA = "https://max.bountyads.store/?utm_medium=8ebfe9ea8ea08199550e9d5cbe70ee55dbafe5f7&utm_campaign=IQ";
+const CPA_LINK = "https://max.bountyads.store/?utm_medium=8ebfe9ea8ea08199550e9d5cbe70ee55dbafe5f7&utm_campaign=IQ";
 
+/* ================= Wheel Setup ================= */
+const rewards = ["Try Again","$10","Bonus","$50","Almost","$100"];
+const colors = ["#ff4d4d","#00ffcc","#ffcc00","#00aaff","#ff66cc","#66ff66"];
+
+const canvas = document.getElementById("wheelCanvas");
+const ctx = canvas.getContext("2d");
+
+const slices = rewards.length;
+const angle = 2 * Math.PI / slices;
+
+function drawWheel(){
+  for(let i=0;i<slices;i++){
+    ctx.beginPath();
+    ctx.moveTo(140,140);
+    ctx.arc(140,140,140,i*angle,(i+1)*angle);
+    ctx.fillStyle = colors[i];
+    ctx.fill();
+
+    ctx.save();
+    ctx.translate(140,140);
+    ctx.rotate(i*angle + angle/2);
+    ctx.fillStyle="#000";
+    ctx.font="14px Arial";
+    ctx.fillText(rewards[i],60,5);
+    ctx.restore();
+  }
+}
+
+drawWheel();
+
+/* ================= Spin ================= */
 let spun = false;
 
 function spin(){
   if(spun) return;
   spun = true;
 
-  let w = document.getElementById("wheel");
-  w.style.transition="3s";
-  w.style.transform="rotate(1440deg)";
+  let wheel = document.getElementById("wheelCanvas");
+
+  // نخليه يقف على "Almost" (متحكمين)
+  let targetIndex = 4; 
+  let deg = 3600 + (targetIndex * (360 / slices));
+
+  wheel.style.transform = "rotate("+deg+"deg)";
 
   setTimeout(()=>{
-    alert("Almost! 😳\nAnswer 2 questions to unlock reward");
-    document.getElementById("spin").style.display="none";
+    alert("😳 Almost! Answer 2 questions to unlock your reward");
+    document.getElementById("spinSection").style.display="none";
     document.getElementById("quiz").style.display="block";
-    load();
-  },3000);
+    loadQuestion();
+  },4000);
 }
 
+/* ================= Quiz ================= */
 let i=0;
 
-let questions=[
+let questions = [
   {q:"Which color is sky?",a:["Blue","Green","Red"]},
-  {q:"2+2=?",a:["3","4","5"]}
+  {q:"2 + 2 = ?",a:["3","4","5"]}
 ];
 
-function load(){
-  let q=questions[i];
-  document.getElementById("q").innerText=q.q;
+function loadQuestion(){
+  let q = questions[i];
+  document.getElementById("q").innerText = q.q;
 
-  let answers=document.getElementById("answers");
-  answers.innerHTML="";
+  let answers = document.getElementById("answers");
+  answers.innerHTML = "";
 
   document.getElementById("bar").style.width=(i/questions.length*100)+"%";
 
   q.a.forEach(a=>{
-    let b=document.createElement("button");
-    b.className="btn";
-    b.innerText=a;
-    b.onclick=next;
-    answers.appendChild(b);
+    let btn=document.createElement("button");
+    btn.className="btn";
+    btn.innerText=a;
+    btn.onclick=nextQuestion;
+    answers.appendChild(btn);
   });
 }
 
-function next(){
+function nextQuestion(){
   i++;
   if(i<questions.length){
-    load();
+    loadQuestion();
   }else{
     finish();
   }
 }
 
+/* ================= Result ================= */
 function finish(){
   document.getElementById("quiz").style.display="none";
   document.getElementById("result").style.display="block";
 }
 
 function go(){
-  window.location.href = CPA;
+  window.location.href = CPA_LINK;
 }
 </script>
 
