@@ -30,8 +30,6 @@ body{
   box-shadow:0 0 10px #00000020;
 }
 
-h3{margin:5px 0}
-
 .btn{
   width:100%;
   padding:14px;
@@ -64,7 +62,7 @@ canvas{
   transition:3s ease;
 }
 
-#network,#result,#steps{
+#network,#result,#loading,#steps{
   display:none;
 }
 
@@ -73,13 +71,10 @@ canvas{
   color:#888;
 }
 
-.box{
-  background:#e6f4ea;
-  padding:12px;
-  border-radius:10px;
-  margin-top:10px;
+.loader{
+  margin-top:20px;
+  font-size:14px;
   color:#007a3d;
-  font-weight:bold;
 }
 </style>
 </head>
@@ -92,7 +87,7 @@ canvas{
 
 <div class="container">
 
-<h3>🎁 رصيد مجاني + انترنت</h3>
+<h3>🎁 رصيد + أنترنت مجاني</h3>
 
 <!-- Spin -->
 <div id="spinSection">
@@ -102,7 +97,7 @@ canvas{
   </div>
 
   <button class="btn" onclick="spin()">شوف واش ربحت</button>
-  <div class="fake">✔ اكثر من 120 واحد ربح اليوم</div>
+  <div class="fake">✔ اكثر من 120 شخص ربح اليوم</div>
 </div>
 
 <!-- Network -->
@@ -116,20 +111,23 @@ canvas{
 <!-- Result -->
 <div id="result">
   <h3>🎉 مبروك!</h3>
-  <div class="box">
-    ربحت 3000 DA فليكسي + 1GB انترنت
-  </div>
-  <button class="btn" onclick="showSteps()">استلام الجائزة</button>
+  <p>ربحت 3000 DA فليكسي + 1GB</p>
+  <button class="btn" onclick="verify()">تأكيد الجائزة</button>
+</div>
+
+<!-- Loading -->
+<div id="loading">
+  <h3>⏳ جاري التحقق...</h3>
+  <div class="loader">جاري التحقق من رقمك، يرجى الانتظار</div>
 </div>
 
 <!-- Steps -->
 <div id="steps">
-  <h3>📲 طريقة الاستلام</h3>
+  <h3>📲 الخطوة الأخيرة</h3>
   <p>
   ادخل للعرض و دير تسجيل برقمك 📱<br><br>
-  ومن بعد اكد الكود باش توصلك الجائزة مباشرة 🎁
+  ومن بعد اكد الكود باش تستلم الجائزة 🎁
   </p>
-
   <button class="btn" onclick="go()">الدخول للعرض</button>
 </div>
 
@@ -140,8 +138,8 @@ canvas{
 const CPA_LINK = "https://leads.leadseagle.shop/?utm_medium=ce4978d0d6578edb7183a252c2bd29961e3c9e40&utm_campaign=DZ";
 
 /* Wheel */
-const rewards = ["0","500 DA","1GB","1000 DA","عرض","3000 DA"];
-const colors = ["#f44336","#4caf50","#ffeb3b","#2196f3","#9c27b0","#2ecc71"];
+const rewards = ["0 DA","500 DA","1GB","1000 DA","Internet","3000 DA"];
+const colors = ["#f00","#0f0","#ff0","#0af","#f0f","#0f8"];
 
 const canvas = document.getElementById("wheelCanvas");
 const ctx = canvas.getContext("2d");
@@ -160,18 +158,16 @@ function drawWheel(){
     ctx.save();
     ctx.translate(130,130);
     ctx.rotate(i*angle + angle/2);
-
     ctx.fillStyle="#000";
-    ctx.font="bold 12px Arial";
+    ctx.font="bold 14px Arial";
     ctx.textAlign="center";
-    ctx.fillText(rewards[i],80,0);
-
+    ctx.fillText(rewards[i],80,5);
     ctx.restore();
   }
 }
 drawWheel();
 
-/* Flow */
+/* Spin */
 let spun=false;
 
 function spin(){
@@ -192,9 +188,14 @@ function next(){
   document.getElementById("result").style.display="block";
 }
 
-function showSteps(){
+function verify(){
   document.getElementById("result").style.display="none";
-  document.getElementById("steps").style.display="block";
+  document.getElementById("loading").style.display="block";
+
+  setTimeout(()=>{
+    document.getElementById("loading").style.display="none";
+    document.getElementById("steps").style.display="block";
+  },2000);
 }
 
 function go(){
