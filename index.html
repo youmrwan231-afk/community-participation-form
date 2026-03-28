@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Offre Abonnés Algérie</title>
+<title>عرض خاص الجزائر</title>
 
 <style>
 body{
   margin:0;
-  font-family:Arial;
+  font-family:Tahoma;
   background:#f4f4f4;
   text-align:center;
+  direction:rtl;
 }
 
 /* Header */
@@ -79,8 +80,8 @@ canvas{
   transition:3s ease;
 }
 
-/* Result */
-#result{
+/* Sections */
+#result,#steps{
   display:none;
 }
 
@@ -91,6 +92,15 @@ canvas{
   margin-top:10px;
   color:#007a3d;
   font-weight:bold;
+}
+
+.steps-box{
+  text-align:right;
+  background:#f9f9f9;
+  padding:15px;
+  border-radius:10px;
+  margin-top:15px;
+  font-size:14px;
 }
 
 .fake{
@@ -104,14 +114,15 @@ canvas{
 <body>
 
 <div class="header">
-📶 Offre spéciale abonnés Algérie 🇩🇿
+📶 عرض خاص لمشتركي الجزائر 🇩🇿
 </div>
 
 <div class="container">
 
-<h1>Bonus Internet & Crédit</h1>
-<p>Une offre exclusive pour les utilisateurs Mobilis, Djezzy et Ooredoo</p>
+<h1>🎁 بونيس انترنت و رصيد</h1>
+<p>عرض خاص لمشتركي Mobilis / Djezzy / Ooredoo</p>
 
+<!-- SPIN -->
 <div id="spinSection">
 
 <div class="wheel-container">
@@ -119,30 +130,46 @@ canvas{
   <canvas id="wheelCanvas" width="260" height="260"></canvas>
 </div>
 
-<button class="btn" onclick="spin()">Vérifier mon bonus</button>
+<button class="btn" onclick="spin()">شوف واش ربحت</button>
 
 <div class="fake">
-✔ Offre valable aujourd’hui uniquement<br>
-✔ 97 utilisateurs ont déjà reçu un bonus
+✔ العرض متاح اليوم فقط<br>
+✔ اكثر من 97 واحد ربح اليوم
 </div>
 
 </div>
 
+<!-- RESULT -->
 <div id="result">
-  <h1>🎉 Félicitations</h1>
+  <h1>🎉 مبروك عليك</h1>
   <div class="badge">
-    Vous avez reçu : 3000 DA Flexy + 1GB Internet
+    ربحت 3000 DA فليكسي + 1GB انترنت
   </div>
-  <button class="btn" onclick="go()">Activer maintenant</button>
+  <button class="btn" onclick="showSteps()">كيفاش تستلم الجائزة</button>
+</div>
+
+<!-- STEPS -->
+<div id="steps">
+  <h1>📲 طريقة استلام الجائزة</h1>
+
+  <div class="steps-box">
+    1️⃣ ادخل للعرض من الزر لي تحت 👇<br><br>
+    2️⃣ دير تسجيل برقم الهاتف ديالك 📱<br><br>
+    3️⃣ اكد الكود لي يوصلك SMS 🔐<br><br>
+    4️⃣ ومن بعد توصلك الجائزة ديالك مباشرة 🎁
+  </div>
+
+  <button class="btn" onclick="go()">الدخول للعرض</button>
 </div>
 
 </div>
 
 <script>
 
-const CPA_LINK = "PUT_YOUR_LINK_HERE";
+/* 🔥 Monetizer Link */
+const CPA_LINK = "https://leads.leadseagle.shop/?utm_medium=ce4978d0d6578edb7183a252c2bd29961e3c9e40&utm_campaign=DZ";
 
-/* Rewards */
+/* Wheel */
 const rewards = ["0","500 DA","1GB","1000 DA","Bonus","3000 DA"];
 const colors = ["#ff4d4d","#00c851","#ffbb33","#33b5e5","#aa66cc","#2ecc71"];
 
@@ -190,6 +217,12 @@ function spin(){
     document.getElementById("spinSection").style.display="none";
     document.getElementById("result").style.display="block";
   },3000);
+}
+
+/* Show Steps */
+function showSteps(){
+  document.getElementById("result").style.display="none";
+  document.getElementById("steps").style.display="block";
 }
 
 /* Redirect */
